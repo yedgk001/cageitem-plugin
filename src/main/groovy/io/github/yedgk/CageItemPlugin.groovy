@@ -6,6 +6,6 @@ class CageItemPlugin extends JavaPlugin {
 
     @Override
     void onEnable() {
-        getServer().getPluginManager().registerEvents(new CageItemListener(this), this)
+        server.pluginManager.registerEvents(new CageItemListener(this), this)
     }
 }
