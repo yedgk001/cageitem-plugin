@@ -1,0 +1,5 @@
+name: caseitem-plugin
+version: '1.0'
+main: io.github.yedgk.CaseItemPlugin
+api-version: '1.21'
+author: yedgk
