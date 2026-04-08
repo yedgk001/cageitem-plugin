@@ -1,1 +1,1 @@
-rootProject.name = "caseitem-plugin"
+rootProject.name = "cageitem-plugin"

@@ -5,8 +5,8 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Material
 
-class CaseItem {
-    static final def caseItem = new ItemBuilder(Material.RED_DYE)
+class CageItem {
+    static final def cageItem = new ItemBuilder(Material.RED_DYE)
             .displayName(Component.text("Buda", NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
             .lore(
                     Component.text("Po kliknięciu PPM na przeciwnika", NamedTextColor.GRAY)

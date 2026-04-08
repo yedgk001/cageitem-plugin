@@ -14,26 +14,26 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerTeleportEvent
 import org.bukkit.plugin.Plugin
 
-class CaseItemListener implements Listener {
+class CageItemListener implements Listener {
 
     private final Plugin plugin
     private final def cage = new HashSet<UUID>()
 
-    CaseItemListener(Plugin plugin) {
+    CageItemListener(Plugin plugin) {
         this.plugin = plugin
     }
 
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent event) {
-        event.player.inventory.addItem(CaseItem.caseItem)
+        event.player.inventory.addItem(CageItem.cageItem)
     }
 
     @EventHandler
     void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        if (!event.player.inventory.itemInMainHand.isSimilar(CaseItem.caseItem)) return
+        if (!event.player.inventory.itemInMainHand.isSimilar(CageItem.cageItem)) return
         if (!event.rightClicked instanceof Player) return
         def player = event.player
-        if (player.hasCooldown(CaseItem.caseItem)) {
+        if (player.hasCooldown(CageItem.cageItem)) {
             player.sendActionBar(Component.text("Masz jeszcze cooldown na użycie tego przedmiotu!").color(NamedTextColor.DARK_RED))
             return
         }
@@ -48,7 +48,7 @@ class CaseItemListener implements Listener {
             p2.hidePlayer(plugin, it)
         }
         borderWithRunnable(p1, p2)
-        p1.setCooldown(CaseItem.caseItem, 20 * 80)
+        p1.setCooldown(CageItem.cageItem, 20 * 80)
         p1.showTitle(Title.title(Component.empty(), Component.text("Użyłeś eventowego przedmiotu! (Buda)")))
         cage.add(p1.uniqueId)
         cage.add(p2.uniqueId)

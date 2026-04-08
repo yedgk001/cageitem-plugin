@@ -1,5 +1,5 @@
-name: caseitem-plugin
+name: cageitem-plugin
 version: '1.0'
-main: io.github.yedgk.CaseItemPlugin
+main: io.github.yedgk.CageItemPlugin
 api-version: '1.21'
 author: yedgk
