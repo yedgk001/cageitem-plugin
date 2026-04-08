@@ -66,7 +66,7 @@ class CageItemListener implements Listener {
             pb.damageAmount = 0
             it.worldBorder = pb
         }
-        Bukkit.getScheduler().runTaskLater(plugin, {
+        Bukkit.scheduler.runTaskLater(plugin, {
             [p1, p2].each {
                 it.worldBorder = border
                 cage.remove(it.uniqueId)
