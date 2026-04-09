@@ -9,6 +9,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityToggleGlideEvent
 import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -24,6 +25,12 @@ class CageItemListener implements Listener {
 
     CageItemListener(Plugin plugin) {
         this.plugin = plugin
+    }
+
+    @EventHandler
+    void onBlockPlace(BlockPlaceEvent event) {
+        if (!event.itemInHand.isSimilar(CageItem.cageItem)) return
+        event.cancelled = true
     }
 
     @EventHandler
