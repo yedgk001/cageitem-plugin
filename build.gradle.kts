@@ -17,8 +17,7 @@ dependencies {
 }
 
 tasks.shadowJar {
-    minimize()
-    archiveFileName.set("cageitem-plugin-${version}.jar")
+    archiveFileName.set("cageitem-plugin-1.0.jar")
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
