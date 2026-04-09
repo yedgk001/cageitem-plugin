@@ -16,4 +16,9 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 }
 
+tasks.shadowJar {
+    minimize()
+    archiveFileName.set("cageitem-plugin-${version}.jar")
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

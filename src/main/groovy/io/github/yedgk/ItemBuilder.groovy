@@ -1,5 +1,7 @@
 package io.github.yedgk
 
+import io.papermc.paper.datacomponent.DataComponentBuilder
+import io.papermc.paper.datacomponent.DataComponentType
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -7,30 +9,35 @@ import org.bukkit.inventory.meta.ItemMeta
 
 class ItemBuilder {
     private final ItemStack itemStack
-    private final ItemMeta itemMeta
+    private final ItemMeta meta
 
     ItemBuilder(Material material) {
-        this.itemStack = new ItemStack(material, 1)
-        this.itemMeta = this.itemStack.itemMeta
+        itemStack = new ItemStack(material, 1)
+        meta = itemStack.itemMeta
     }
 
-    ItemBuilder displayName(Component displayName) {
-        this.itemMeta.displayName(displayName)
-        return this
+    ItemBuilder displayName(Component name) {
+        meta.displayName(name)
+        this
     }
 
-    ItemBuilder lore(Component... lore) {
-        this.itemMeta.lore(List.of(lore))
-        return this
+    ItemBuilder data(DataComponentType.Valued type, DataComponentBuilder builder) {
+        itemStack.setData(type, builder)
+        this
     }
 
-    ItemBuilder customModelData(int customModelData) {
-        this.itemMeta.customModelData = customModelData
-        return this
+    ItemBuilder lore(Component... lines) {
+        meta.lore(lines as List)
+        this
+    }
+
+    ItemBuilder customModelData(int cmd) {
+        meta.customModelData = cmd
+        this
     }
 
     ItemStack build() {
-        this.itemStack.itemMeta = this.itemMeta
-        return this.itemStack
+        itemStack.itemMeta = meta
+        itemStack
     }
 }
