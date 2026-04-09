@@ -23,6 +23,13 @@ tasks {
         dependsOn("shadowJar")
     }
 
+    processResources {
+        inputs.property("project", project)
+        filesMatching("paper-plugin.yml") {
+            expand("project" to project)
+        }
+    }
+
     shadowJar {
         minimize()
     }
