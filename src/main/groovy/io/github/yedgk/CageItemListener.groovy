@@ -2,6 +2,7 @@ package io.github.yedgk
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -47,7 +48,7 @@ class CageItemListener implements Listener {
         long now = System.currentTimeMillis()
         def lastUsed = player.persistentDataContainer.get(key, PersistentDataType.LONG)
         if (now - lastUsed <= 80000L) {
-            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!").color(NamedTextColor.RED))
+            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.RED))
             return
         }
         player.persistentDataContainer.set(key, PersistentDataType.LONG, now)
@@ -70,7 +71,7 @@ class CageItemListener implements Listener {
             worldborder.warningDistance = 0
             it.worldBorder = worldborder
         }
-        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza").color(NamedTextColor.WHITE), Component.text("$p2.name").color(NamedTextColor.LIGHT_PURPLE)))
+        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false), Component.text("$p2.name").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.LIGHT_PURPLE)))
         Bukkit.scheduler.runTaskLater(plugin, {
             activeCages.remove(arena)
             [p1, p2].each { it.worldBorder = it.world.worldBorder }
@@ -83,7 +84,7 @@ class CageItemListener implements Listener {
         def player = event.player
         def to = event.to
         activeCages.each {
-            if (!it.participants.contains(player.uniqueId) && it.isInside(to)) {
+            if (!it.participants.contains(player.uniqueId) && it.inside(to)) {
                 event.cancelled = true
             }
         }
@@ -94,7 +95,7 @@ class CageItemListener implements Listener {
         if (event.cause != PlayerTeleportEvent.TeleportCause.ENDER_PEARL) return
         def player = event.player
         def to = event.to
-        if (activeCages.any { it.participants.contains(player.uniqueId) && it.isInside(to) }) event.cancelled = true
+        if (activeCages.any { it.participants.contains(player.uniqueId) && it.inside(to) }) event.cancelled = true
     }
 
     @EventHandler

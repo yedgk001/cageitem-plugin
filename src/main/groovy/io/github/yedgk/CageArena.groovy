@@ -13,7 +13,7 @@ class CageArena {
         this.participants = participants
     }
 
-    def isInside(Location loc) {
+    def inside(Location loc) {
         return loc.world == center.world && Math.abs(loc.x - center.x) <= radius && Math.abs(loc.z - center.z) <= radius
     }
 }
