@@ -7,7 +7,6 @@ import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -17,7 +16,6 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerTeleportEvent
-import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.Plugin
 
 class CageItemListener implements Listener {
@@ -44,13 +42,14 @@ class CageItemListener implements Listener {
         if (!event.player.inventory.itemInMainHand.isSimilar(CageItem.cageItem)) return
         if (!(event.rightClicked instanceof Player)) return
         def player = event.player
-        if (System.currentTimeMillis() - player.persistentDataContainer.get(NamespacedKey.minecraft("cageitem"), PersistentDataType.LONG) <= 80000) {
-            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!")
-                    .decoration(TextDecoration.ITALIC, false)
-                    .color(NamedTextColor.RED))
+        if (player.hasCooldown(Material.CHAIN)) {
+            player.sendActionBar(
+                    Component.text("Przedmiot jest jeszcze niedostępny! ( ${(Integer) player.getCooldown(Material.CHAIN) / 20}s )")
+                            .decoration(TextDecoration.ITALIC, false)
+                            .color(NamedTextColor.RED))
             return
         }
-        player.persistentDataContainer.set(NamespacedKey.minecraft("cageitem"), PersistentDataType.LONG, System.currentTimeMillis())
+        player.setCooldown(Material.CHAIN, 1600)
         createCage(player, (Player) event.rightClicked)
     }
 
@@ -96,7 +95,7 @@ class CageItemListener implements Listener {
         if (event.cause != PlayerTeleportEvent.TeleportCause.ENDER_PEARL) return
         def player = event.player
         def to = event.to
-        if (activeCages.any { it.participants.contains(player.uniqueId) && it.inside(to) }) event.cancelled = true
+        if (activeCages.any { it.participants.contains(player.uniqueId) && !it.inside(to) }) event.cancelled = true
     }
 
     @EventHandler
