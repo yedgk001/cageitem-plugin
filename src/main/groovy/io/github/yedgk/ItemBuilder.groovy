@@ -1,7 +1,6 @@
 package io.github.yedgk
 
-import io.papermc.paper.datacomponent.DataComponentBuilder
-import io.papermc.paper.datacomponent.DataComponentType
+
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -18,11 +17,6 @@ class ItemBuilder {
 
     ItemBuilder displayName(Component name) {
         meta.displayName(name)
-        this
-    }
-
-    ItemBuilder data(DataComponentType.Valued type, DataComponentBuilder builder) {
-        itemStack.setData(type, builder)
         this
     }
 
