@@ -1,5 +1,8 @@
-name: cageitem-plugin
-version: 1.0
+#file: noinspection YAMLSchemaValidation
+name: ${project.name}
+version: ${project.version}
 main: io.github.yedgk.CageItemPlugin
 api-version: 1.21
 author: yedgk
+libraries:
+  - org.apache.groovy:groovy:5.0.0
