@@ -1,5 +1,5 @@
-name: ${project.name}
-version: ${project.version}
+name: cageitem-plugin
+version: 1.0
 main: io.github.yedgk.CageItemPlugin
-api-version: '1.21'
+api-version: 1.21
 author: yedgk
