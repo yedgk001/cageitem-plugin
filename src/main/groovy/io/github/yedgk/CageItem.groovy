@@ -16,7 +16,7 @@ class CageItem {
                     Component.text("Po kliknięciu PPM na przeciwnika")
                             .color(NamedTextColor.WHITE)
                             .decoration(TextDecoration.ITALIC, false),
-                    Component.text("tworzy z nim klatkę 1vs1 na 10 sekund")
+                    Component.text("tworzy z nim klatkę 1vs1 na 10 sekund.")
                             .color(NamedTextColor.WHITE)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.text(""),
