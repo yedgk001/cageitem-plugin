@@ -2,6 +2,7 @@ package io.github.yedgk
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -47,7 +48,7 @@ class CageItemListener implements Listener {
         long now = System.currentTimeMillis()
         def lastUsed = player.persistentDataContainer.get(key, PersistentDataType.LONG)
         if (now - lastUsed <= 80000L) {
-            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!", NamedTextColor.DARK_RED))
+            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!", NamedTextColor.DARK_RED).decoration(TextDecoration.ITALIC, false))
             return
         }
         player.persistentDataContainer.set(key, PersistentDataType.LONG, now)
@@ -70,7 +71,7 @@ class CageItemListener implements Listener {
             worldborder.warningDistance = 0
             it.worldBorder = worldborder
         }
-        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza", NamedTextColor.LIGHT_PURPLE), Component.text("$p2.name")))
+        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false), Component.text("$p2.name", NamedTextColor.LIGHT_PURPLE).decoration(TextDecoration.ITALIC, false)))
         Bukkit.scheduler.runTaskLater(plugin, {
             activeCages.remove(arena)
             [p1, p2].each { it.worldBorder = it.world.worldBorder }
