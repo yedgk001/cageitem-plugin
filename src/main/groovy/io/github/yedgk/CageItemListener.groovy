@@ -1,3 +1,4 @@
+//file:noinspection GrMethodMayBeStatic
 package io.github.yedgk
 
 import net.kyori.adventure.text.Component
@@ -20,7 +21,6 @@ import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.Plugin
 
 class CageItemListener implements Listener {
-
     private final Plugin plugin
     private final List<CageArena> activeCages = []
 
@@ -44,26 +44,22 @@ class CageItemListener implements Listener {
         if (!event.player.inventory.itemInMainHand.isSimilar(CageItem.cageItem)) return
         if (!(event.rightClicked instanceof Player)) return
         def player = event.player
-        def key = new NamespacedKey(plugin, "cageitem-plugin")
-        long now = System.currentTimeMillis()
-        def lastUsed = player.persistentDataContainer.get(key, PersistentDataType.LONG)
-        if (now - lastUsed <= 80000L) {
-            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.RED))
+        if (System.currentTimeMillis() - player.persistentDataContainer.get(NamespacedKey.minecraft("cageitem"), PersistentDataType.LONG) <= 80000) {
+            player.sendActionBar(Component.text("Przedmiot jest jeszcze niedostępny!")
+                    .decoration(TextDecoration.ITALIC, false)
+                    .color(NamedTextColor.RED))
             return
         }
-        player.persistentDataContainer.set(key, PersistentDataType.LONG, now)
-        def target = (Player) event.rightClicked
-        createCage(player, target)
+        player.persistentDataContainer.set(NamespacedKey.minecraft("cageitem"), PersistentDataType.LONG, System.currentTimeMillis())
+        createCage(player, (Player) event.rightClicked)
     }
 
     private void createCage(Player p1, Player p2) {
         def center = p1.location
-        double size = 10.0D
-        double radius = size / 2.0D
-
+        double size = 10
+        double radius = size / 2
         def arena = new CageArena(center, radius, [p1.uniqueId, p2.uniqueId])
         activeCages.add(arena)
-
         [p1, p2].each {
             def worldborder = Bukkit.createWorldBorder()
             worldborder.center = center
@@ -71,11 +67,16 @@ class CageItemListener implements Listener {
             worldborder.warningDistance = 0
             it.worldBorder = worldborder
         }
-        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza").color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false), Component.text("$p2.name").decoration(TextDecoration.ITALIC, false).color(NamedTextColor.LIGHT_PURPLE)))
+        p1.showTitle(Title.title(Component.text("Uwięziłeś gracza")
+                .color(NamedTextColor.WHITE)
+                .decoration(TextDecoration.ITALIC, false),
+                Component.text("$p2.name")
+                        .decoration(TextDecoration.ITALIC, false)
+                        .color(NamedTextColor.LIGHT_PURPLE)))
         Bukkit.scheduler.runTaskLater(plugin, {
             activeCages.remove(arena)
             [p1, p2].each { it.worldBorder = it.world.worldBorder }
-        }, 20L * 10)
+        }, 200)
     }
 
     @EventHandler
