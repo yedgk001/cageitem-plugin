@@ -1,5 +1,7 @@
-package io.github.yedgk
+package io.github.yedgk.listener
 
+import io.github.yedgk.CageItem
+import io.github.yedgk.service.CageService
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -36,7 +38,7 @@ class CageListener implements Listener {
         def player = event.player
         if (player.hasCooldown(CageItem.cageItem)) {
             player.sendActionBar(
-                    Component.text("Przedmiot jest jeszcze niedostępny! ( ${(Integer) player.getCooldown(Material.CHAIN) / 20}s )")
+                    Component.text("Przedmiot jeszcze niedostępny! ( ${player.getCooldown(Material.CHAIN) / 20 as Integer}s )")
                             .decoration(TextDecoration.ITALIC, false)
                             .color(NamedTextColor.RED))
             return

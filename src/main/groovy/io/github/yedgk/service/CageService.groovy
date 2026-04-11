@@ -1,5 +1,6 @@
-package io.github.yedgk
+package io.github.yedgk.service
 
+import io.github.yedgk.Cage
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -28,7 +29,7 @@ class CageService {
             it.worldBorder = worldborder
         }
         player.showTitle(Title.title(
-                Component.text("Uwięziłeś gracza")
+                Component.text("Uwięziono gracza")
                         .color(NamedTextColor.WHITE)
                         .decoration(TextDecoration.ITALIC, false),
                 Component.text("$target.name")

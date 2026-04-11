@@ -1,5 +1,6 @@
-package io.github.yedgk
+package io.github.yedgk.command
 
+import io.github.yedgk.CageItem
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -9,21 +10,21 @@ import org.bukkit.entity.Player
 import org.jetbrains.annotations.NotNull
 
 class CageItemCommand extends Command {
-    protected CageItemCommand() {
-        super("command", "", "", ["dajbude"])
+    CageItemCommand() {
+        super("cageitem", "Nadaje do ekwipunku gracza Budę..", "", ["dajbude"])
     }
 
     @Override
     boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!sender instanceof Player) {
-            sender.sendMessage("Ta komenda jest tylko dla gracza!")
+            sender.sendMessage("Komenda tylko dla gracza..")
             return false
         }
         def player = sender as Player
         player.inventory.addItem(CageItem.cageItem)
         player.sendMessage(
-                Component.text("Pomyślnie otrzymałeś do ekwipunku Bude!")
-                        .color(NamedTextColor.WHITE)
+                Component.text("Nadano do ekwipunku Bude..")
+                        .color(NamedTextColor.LIGHT_PURPLE)
                         .decoration(TextDecoration.ITALIC, false))
         return true
     }

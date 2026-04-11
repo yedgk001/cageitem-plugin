@@ -1,4 +1,4 @@
-package io.github.yedgk
+package io.github.yedgk.builder
 
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
@@ -14,18 +14,18 @@ class ItemBuilder {
         meta = itemStack.itemMeta
     }
 
-    ItemBuilder displayName(Component name) {
-        meta.displayName(name)
+    ItemBuilder displayName(Component displayName) {
+        meta.displayName(displayName)
         this
     }
 
-    ItemBuilder lore(Component... lines) {
-        meta.lore(lines as List)
+    ItemBuilder lore(Component... componentLore) {
+        meta.lore(componentLore as List)
         this
     }
 
-    ItemBuilder customModelData(int cmd) {
-        meta.customModelData = cmd
+    ItemBuilder customModelData(int customModelData) {
+        meta.customModelData = customModelData
         this
     }
 
