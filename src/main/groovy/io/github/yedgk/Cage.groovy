@@ -2,12 +2,12 @@ package io.github.yedgk
 
 import org.bukkit.Location
 
-class CageArena {
+class Cage {
     Location center
     double radius
     List<UUID> participants
 
-    CageArena(Location center, double radius, List<UUID> participants) {
+    Cage(Location center, double radius, List<UUID> participants) {
         this.center = center
         this.radius = radius
         this.participants = participants

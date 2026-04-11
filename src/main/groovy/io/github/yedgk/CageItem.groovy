@@ -8,10 +8,11 @@ import org.bukkit.Material
 
 class CageItem {
     static final def cageItem = new ItemBuilder(Material.CHAIN)
-            .displayName(Component.text("Buda")
-                    .color(NamedTextColor.YELLOW)
-                    .decoration(TextDecoration.BOLD, true)
-                    .decoration(TextDecoration.ITALIC, false))
+            .displayName(
+                    Component.text("Buda")
+                            .color(NamedTextColor.YELLOW)
+                            .decoration(TextDecoration.BOLD, true)
+                            .decoration(TextDecoration.ITALIC, false))
             .lore(
                     Component.text("Po kliknięciu PPM na przeciwnika")
                             .color(NamedTextColor.WHITE)
@@ -22,9 +23,10 @@ class CageItem {
                     Component.text(""),
                     Component.text("Czas przeładowania to ", NamedTextColor.WHITE)
                             .decoration(TextDecoration.ITALIC, false)
-                            .append(Component.text("1 minuta 20 sekund")
-                                    .color(NamedTextColor.LIGHT_PURPLE)
-                                    .decoration(TextDecoration.ITALIC, false))
+                            .append(
+                                    Component.text("1 minuta 20 sekund")
+                                            .color(NamedTextColor.LIGHT_PURPLE)
+                                            .decoration(TextDecoration.ITALIC, false))
             )
             .customModelData(981)
             .build()
